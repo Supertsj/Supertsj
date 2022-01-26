@@ -1,0 +1,75 @@
+if game.PlaceId == 6206893534 then
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Penguin Hub", "Sentinel")
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Player")
+    MainSection:NewSlider("Walkspeed", "Change your walkspeed", 250, 16, function(v) -- 500 (MaxValue) | 0 (MinValue)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end)
+    MainSection:NewSlider("Jumppower", "Change your jumppower", 250, 50, function(v) -- 500 (MaxValue) | 0 (MinValue)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end)   
+    local AutoFarm = Window:NewTab("AutoFarm")
+    local AutoFarmSection = AutoFarm:NewSection("gamepass")
+    
+    AutoFarmSection:NewToggle("Auto Dumbell", "Make your player autodumbell", function(v)
+        getgenv().autodumbell = v
+        while true do
+            if not getgenv().autodumbell then return end
+            local A_1 = "Rep"
+            local A_2 = 2
+            local Event = game:GetService("ReplicatedStorage").Remotes.Dumbell
+            Event:FireServer(A_1, A_2)
+            wait()
+        end
+    end)    
+    AutoFarmSection:NewToggle("Auto Bench", "Make your player autobench", function(v)
+        getgenv().autobench = v
+        while true do
+            local Event = game:GetService("ReplicatedStorage").Remotes.Bench
+            Event:FireServer()
+            wait()      
+        end
+    end) 
+    AutoFarmSection:NewDropdown("Farm Mod(not working for now)", "Makes the farm op", {"Dumbell", "Bench"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = game:GetService("Players").LocalPlayer.Backpack.Dumbell.LocalScript
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = game:GetService("Players").LocalPlayer.Character[v].Dumbell.LocalScript
+        end
+    end)
+    local AutoFarmSection = AutoFarm:NewSection("no gamepass")
+    AutoFarmSection:NewToggle("Auto PushUp(cant stop lol)", "Make your player auto PushUp", function(v)
+        getgenv().autopushup = v
+        while wait() do 
+            local Event = game:GetService("ReplicatedStorage").Remotes.PushUp
+            Event:FireServer()
+            wait()
+        end
+    end) 
+    AutoFarmSection:NewToggle("Auto SitUp(cant stop lol)", "Make your player auto SitUp", function(v)
+        getgenv().autositup = v
+        while wait() do 
+            local Event = game:GetService("ReplicatedStorage").Remotes.SitUp
+            Event:FireServer()
+            wait()
+        end
+    end)    
+    AutoFarmSection:NewLabel("for the auto farm strength you need to go to the")
+    AutoFarmSection:NewLabel("script section and use straw hub or tea hub")
+    local Scripts = Window:NewTab("Scripts")
+    local ScriptsSection = Scripts:NewSection("Other Scripts")
+    ScriptsSection:NewButton("inf yield", "Gives you inf yield", function(v)
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()    
+    end)
+    ScriptsSection:NewButton("Straw Hub", "Gives you Straw Hub", function(v)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/COBRA%20KAI%20KARATE%20%7C%20OPEN%20SOURCE%20GUI"))()
+    end)
+    ScriptsSection:NewButton("Tea Hub", "Gives you Tea Hub", function(v)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Aurelius0863/TeaHub/main/Loader.lua"))()
+    end)
+    ScriptsSection:NewButton("Anti AFK", "Gives you Anti AFK", function(v)
+    loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))()
+    end)
+end
